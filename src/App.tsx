@@ -9,7 +9,7 @@ import View from "./routes/View";
 function App() {
   return (
     <BrowserRouter>
-      <div>
+      <div className="App">
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
