@@ -1,0 +1,12 @@
+.view_div_edit_btn {
+  display: flex;
+  justify-content: flex-end;
+}
+/* .view_edit_btn {
+  display: flex;
+  justify-content: flex-end;
+} */
+
+.view_img {
+  width: 300px;
+}
