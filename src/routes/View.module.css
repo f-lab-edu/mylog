@@ -1,0 +1,9 @@
+.view_head_detail {
+  width: 350px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.view_img {
+  width: 300px;
+}

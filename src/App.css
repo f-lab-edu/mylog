@@ -1,0 +1,35 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;900&display=swap");
+
+#root {
+  background-color: #ffffff;
+}
+
+body {
+  background-color: #f6f6f6;
+  display: flex;
+  justify-content: center;
+  /* align-items: center; */
+  font-family: "Noto Serif KR", serif;
+  /* 실제 높이의 100%를 height로 갖겠다 */
+  min-height: 100vh;
+  margin: 0px;
+}
+
+.App {
+  font-family: "Noto Serif KR", serif;
+  min-height: 100vh;
+  padding: 0 20px;
+}
+
+/* 지금보는 화면이 1060px이상일 때 적용 */
+@media (min-width: 1060px) {
+  .App {
+    width: 1060px;
+  }
+}
+/* 지금보는 화면이 1060px이하일 때 적용 */
+@media (max-width: 1060px) {
+  .App {
+    width: 96vw;
+  }
+}
