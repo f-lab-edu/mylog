@@ -1,11 +1,8 @@
-.view_div_edit_btn {
+.view_head_detail {
+  width: 350px;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
 }
-/* .view_edit_btn {
-  display: flex;
-  justify-content: flex-end;
-} */
 
 .view_img {
   width: 300px;

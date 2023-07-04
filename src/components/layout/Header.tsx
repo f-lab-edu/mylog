@@ -1,6 +1,8 @@
 import React from "react";
 import styles from "./Header.module.css";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
+import SearchIcon from "@mui/icons-material/Search";
+import Line from "../Line";
 
 const Header = () => {
   const env = process.env;
@@ -10,6 +12,9 @@ const Header = () => {
     <>
       <header>
         <button className={styles.header_logo}>MyLog</button>
+        <button className={styles.header_search_icon}>
+          <SearchIcon />
+        </button>
         <button className={styles.header_menu_icon}>
           <MenuRoundedIcon />
         </button>
@@ -19,7 +24,7 @@ const Header = () => {
         alt="header-img"
         className={styles.header_img}
       />
-      <div className={styles.header_line}></div>
+      <Line />
     </>
   );
 };
