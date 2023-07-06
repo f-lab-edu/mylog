@@ -5,6 +5,7 @@ import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
 import Home from "./routes/Home";
 import View from "./routes/View";
+import Edit from "./routes/Edit";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/view/:id" element={<View />} />
+          <Route path="/edit/:id" element={<Edit />} />
         </Routes>
         <Footer />
       </div>

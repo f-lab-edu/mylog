@@ -13,7 +13,7 @@ const View = () => {
           <span>연이</span>
           <span>2023.7.4. 11:11</span>
           <button className={styles.view_edit_btn}>Edit</button>
-          <button className={styles.view_edit_btn}>Delete</button>
+          <button className={styles.view_delete_btn}>Delete</button>
         </div>
         <Line />
       </div>
