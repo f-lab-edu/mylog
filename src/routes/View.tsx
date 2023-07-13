@@ -2,9 +2,11 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import styles from "./View.module.css";
 import Line from "../components/Line";
+import Button from "../components/Button";
 
 const View = () => {
   const { id } = useParams();
+  console.log(id);
   return (
     <>
       <div className={styles.view_head}>
@@ -12,8 +14,12 @@ const View = () => {
         <div className={styles.view_head_detail}>
           <span>연이</span>
           <span>2023.7.4. 11:11</span>
-          <button className={styles.view_edit_btn}>Edit</button>
-          <button className={styles.view_delete_btn}>Delete</button>
+          <Button text={"Edit"} onClick={() => alert("edit!")} type={"edit"} />
+          <Button
+            text={"Delete"}
+            onClick={() => alert("delete!")}
+            type={"delete"}
+          />
         </div>
         <Line />
       </div>
