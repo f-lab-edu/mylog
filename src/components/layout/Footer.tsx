@@ -1,8 +1,7 @@
-import React from "react";
-import styles from "./Footer.module.css";
-import Line from "../Line";
+import styles from "../../styles/Footer.module.css";
+import Line from "../common/Line";
 
-const Footer = () => {
+export default function Footer() {
   return (
     <footer>
       <Line />
@@ -12,6 +11,4 @@ const Footer = () => {
       </div>
     </footer>
   );
-};
-
-export default Footer;
+}

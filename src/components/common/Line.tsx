@@ -1,12 +1,10 @@
 import React from "react";
-import styles from "./Component.module.css";
+import styles from "../../styles/Component.module.css";
 
-const Line = () => {
+export default function Line() {
   return (
     <>
       <div className={styles.line}></div>
     </>
   );
-};
-
-export default Line;
+}

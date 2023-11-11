@@ -1,22 +1,20 @@
-import React from "react";
-import styles from "./Header.module.css";
-import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
-import SearchIcon from "@mui/icons-material/Search";
-import Line from "../Line";
+import styles from "../../styles/Header.module.css";
+import Line from "../common/Line";
+import { SearchOutlined, MenuOutlined } from "@ant-design/icons";
 
-const Header = () => {
+export default function Header() {
   const env = process.env;
   env.PUBLIC_URL = env.PUBLIC_URL || "";
 
   return (
     <>
-      <header>
+      <header className={styles.header}>
         <button className={styles.header_logo}>MyLog</button>
         <button className={styles.header_search_icon}>
-          <SearchIcon />
+          <SearchOutlined />
         </button>
         <button className={styles.header_menu_icon}>
-          <MenuRoundedIcon />
+          <MenuOutlined />
         </button>
       </header>
       <img
@@ -27,6 +25,4 @@ const Header = () => {
       <Line />
     </>
   );
-};
-
-export default Header;
+}

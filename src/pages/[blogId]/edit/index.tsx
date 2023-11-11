@@ -1,6 +1,5 @@
 import { useRef, useState } from "react";
-import { useParams } from "react-router-dom";
-import Line from "../components/Line";
+import Line from "../../../components/common/Line";
 import style from "./Edit.module.css";
 
 // interface ContentState {
@@ -11,8 +10,7 @@ import style from "./Edit.module.css";
 //   };
 // }
 
-const Edit = () => {
-  const { id } = useParams();
+export default function Edit() {
   // const [state, setState] = useState<ContentState["state"]>();
   const [state, setState] = useState({
     title: "title",
@@ -31,6 +29,7 @@ const Edit = () => {
   return (
     <>
       <div>
+        <button>QS 바꾸기</button>
         <h1 id="title" data-value={state.title} onChange={onChange}></h1>
         <div className={style.edit_head_detail}>
           <span>연이</span>
@@ -45,6 +44,4 @@ const Edit = () => {
       </div>
     </>
   );
-};
-
-export default Edit;
+}

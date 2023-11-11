@@ -1,19 +1,16 @@
 import React from "react";
-import { useParams } from "react-router-dom";
-import styles from "./View.module.css";
-import Line from "../components/Line";
-import Button from "../components/Button";
+import styles from "../../styles/View.module.css";
+import Line from "../../components/common/Line";
+import Button from "../../components/common/Button";
 
-const View = () => {
-  const { id } = useParams();
-  console.log(id);
+export default function View() {
   return (
     <>
       <div className={styles.view_head}>
         <h1 className={styles.view_head_title}>View Title</h1>
         <div className={styles.view_head_detail}>
-          <span>연이</span>
-          <span>2023.7.4. 11:11</span>
+          <span>지유</span>
+          <span>2023.11.11. 11:11</span>
           <Button text={"Edit"} onClick={() => alert("edit!")} type={"edit"} />
           <Button
             text={"Delete"}
@@ -58,6 +55,4 @@ const View = () => {
       </div>
     </>
   );
-};
-
-export default View;
+}
