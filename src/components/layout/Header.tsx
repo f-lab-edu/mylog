@@ -1,15 +1,23 @@
+import { useRouter } from "next/router";
 import styles from "../../styles/Header.module.css";
 import Line from "../common/Line";
 import { SearchOutlined, MenuOutlined } from "@ant-design/icons";
+import { memo } from "react";
 
-export default function Header() {
+const Header = () => {
+  const router = useRouter();
+  const onClickLogo = () => {
+    router.push("/");
+  };
   const env = process.env;
   env.PUBLIC_URL = env.PUBLIC_URL || "";
 
   return (
     <>
       <header className={styles.header}>
-        <button className={styles.header_logo}>MyLog</button>
+        <button className={styles.header_logo} onClick={onClickLogo}>
+          MyLog
+        </button>
         <button className={styles.header_search_icon}>
           <SearchOutlined />
         </button>
@@ -25,4 +33,6 @@ export default function Header() {
       <Line />
     </>
   );
-}
+};
+
+export default memo(Header);

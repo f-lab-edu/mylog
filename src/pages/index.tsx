@@ -1,14 +1,15 @@
 import { useContext, useState } from "react";
 import { BlogStateContext } from "../components/layout/BlogContext";
-import BlogList from "./blogList/BlogList";
+import BlogList from "./blogList/index";
 
-export default function Home() {
+const Home = () => {
   const blogList = useContext(BlogStateContext);
   const [data, setData] = useState([]);
   return (
     <section>
-      index.tsx
       <BlogList blogList={data} />
     </section>
   );
-}
+};
+
+export default Home;
