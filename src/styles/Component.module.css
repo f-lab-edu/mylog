@@ -8,14 +8,17 @@
 /* BLOGITEM */
 .section_article {
   display: flex;
+  cursor: pointer;
+  margin-bottom: 50px;
 }
 
 .home_img {
-  width: 200px;
+  width: 180px;
   height: 200px;
-  margin: 0 20px 50px 0;
+  margin-right: 20px;
 }
 
 .section_article_text {
-  width: 100%;
+  font-size: 20px;
+  font-weight: bold;
 }

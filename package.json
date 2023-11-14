@@ -10,10 +10,14 @@
   },
   "dependencies": {
     "@ant-design/icons": "^5.2.6",
+    "@supabase/auth-helpers-nextjs": "^0.8.7",
+    "@supabase/supabase-js": "^2.38.4",
     "antd": "^5.11.1",
     "next": "14.0.2",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-hook-form": "^7.48.2",
+    "react-quill": "^2.0.0"
   },
   "devDependencies": {
     "@types/node": "^20",
