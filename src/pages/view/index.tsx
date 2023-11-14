@@ -3,7 +3,7 @@ import styles from "../../styles/View.module.css";
 import Line from "../../components/common/Line";
 import Button from "../../components/common/Button";
 
-export default function View() {
+const View = () => {
   return (
     <>
       <div className={styles.view_head}>
@@ -55,4 +55,8 @@ export default function View() {
       </div>
     </>
   );
-}
+};
+
+View.displayName = "View";
+
+export default View;

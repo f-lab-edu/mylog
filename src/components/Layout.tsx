@@ -1,7 +1,12 @@
 import Footer from "./layout/Footer";
 import Header from "./layout/Header";
+import { memo } from "react";
 
-const Layout = ({ children }) => {
+type LayoutProps = {
+  children: React.ReactNode;
+};
+
+const Layout = ({ children }: LayoutProps) => {
   return (
     <div className="Layout">
       <Header />
@@ -11,4 +16,6 @@ const Layout = ({ children }) => {
   );
 };
 
-export default Layout;
+Layout.displayName = "Layout";
+
+export default memo(Layout);
