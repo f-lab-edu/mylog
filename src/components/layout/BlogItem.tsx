@@ -1,20 +1,35 @@
-import Button from "../common/Button";
 import styles from "../../styles/Component.module.css";
 import { useRouter } from "next/router";
-import { MouseEvent } from "react";
+import { MouseEvent, useRef, useReducer } from "react";
+import { memo } from "react";
 
-interface State {
+interface Blog {
   id: number;
   title: string;
   content: string;
-  date: number;
+  createdDate: number;
 }
 
-export default function BlogItem({ id, title, content, date }: State) {
+interface Action {
+  type: string;
+  data: { id: number; title: string; content: string; createdDate: number };
+}
+
+// const reducer = (state: Blog[], action: Action): Blog[] => {
+//   switch (action.type) {
+//     case "CREATE": {
+//       return [...state, action.data];
+//     }
+//   }
+// };
+
+const BlogItem = ({ id, title, content, createdDate }: Blog) => {
   const router = useRouter();
+  // const [blogLists, dispatch] = useReducer(reducer);
+  const idRef = useRef(4);
 
   const onClickMoveToDetail = (e: MouseEvent<HTMLDivElement>): void => {
-    router.push(`${e.target.id}`);
+    // router.push(`${e.target.id}`);
   };
 
   const onClickMoveToEdit = () => {
@@ -22,27 +37,27 @@ export default function BlogItem({ id, title, content, date }: State) {
   };
 
   return (
-    <div className="BlogItem">
-      <h1>나와?</h1>
-      <article className={styles.section_article}>
+    <div>
+      <article className={styles.section_article} onClick={onClickMoveToDetail}>
         <img
           src={process.env.PUBLIC_URL + `/assets/wave2.jpg`}
           alt="home_img"
           className={styles.home_img}
         />
-        <div onClick={onClickMoveToDetail} className="info_wrapper">
-          {/* <div className="blog_date">{date}</div> */}
-          <h3>
-            <div className={styles.section_article_text}>{title}</div>
-          </h3>
+        <div>
+          <div className={styles.section_article_text}>{title}</div>
+          <div className={styles.blog_date}>
+            {new Date(createdDate).toLocaleDateString()}
+          </div>
           <p>
-            <div className="blog_content_preview">{content.slice(0, 25)}</div>
+            <div className={styles.blog_content_preview}>{content}</div>
           </p>
-        </div>
-        <div className="btn_wrapper">
-          <Button onClick={onClickMoveToEdit} text={"수정하기"} />
         </div>
       </article>
     </div>
   );
-}
+};
+
+BlogItem.displayName = "BlogItem";
+
+export default memo(BlogItem);
