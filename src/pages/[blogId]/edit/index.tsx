@@ -1,16 +1,17 @@
 import { useRef, useState } from "react";
 import Line from "../../../components/common/Line";
-import style from "./Edit.module.css";
+import style from "../../../styles/Edit.module.css";
+import { memo } from "react";
 
 // interface ContentState {
-//   state: {
+//   Blog: {
 //     title: string;
 //     date: Date;
 //     content: string;
 //   };
 // }
 
-export default function Edit() {
+const Edit = () => {
   // const [state, setState] = useState<ContentState["state"]>();
   const [state, setState] = useState({
     title: "title",
@@ -44,4 +45,8 @@ export default function Edit() {
       </div>
     </>
   );
-}
+};
+
+Edit.displayName = "Edit";
+
+export default memo(Edit);
