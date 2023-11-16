@@ -2,7 +2,8 @@ import Line from "@/components/common/Line";
 import BlogItem from "../../components/layout/BlogItem";
 import styles from "../../styles/Component.module.css";
 import { useRouter } from "next/router";
-import { memo } from "react";
+import { memo, useEffect } from "react";
+import supabase from "@/lib/supabase/client";
 
 interface Blog {
   id: number;
@@ -16,14 +17,16 @@ interface BlogListProps {
 
 const BlogLists = ({ blogLists }: BlogListProps) => {
   const router = useRouter();
+  const numberOfBlogPosts: number = blogLists ? blogLists.length : 0;
+  const blogPosts: Blog[] = blogLists ?? [];
 
   return (
     <div>
       <h2>블로그 리스트</h2>
-      <h4>{blogLists.length}개의 글이 있습니다.</h4>
+      <h4>{numberOfBlogPosts}개의 글이 있습니다.</h4>
       <Line />
       <div>
-        {blogLists.map((lists: Blog) => (
+        {blogPosts.map((lists: Blog) => (
           <BlogItem key={lists.id} {...lists} />
         ))}
       </div>
