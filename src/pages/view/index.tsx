@@ -1,7 +1,6 @@
 import React from "react";
 import styles from "../../styles/View.module.css";
 import Line from "../../components/common/Line";
-import Button from "../../components/common/Button";
 import { memo } from "react";
 
 const View = () => {
