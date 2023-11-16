@@ -28,6 +28,8 @@ button {
   background-color: transparent;
   cursor: pointer;
   font-weight: bold;
+  padding: 5px 5px;
+  white-space: nowrap;
 }
 
 @media (min-width: 1060px) {

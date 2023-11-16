@@ -3,7 +3,6 @@ import styles from "../../styles/Header.module.css";
 import Line from "../common/Line";
 import { SearchOutlined, MenuOutlined } from "@ant-design/icons";
 import { memo } from "react";
-import Button from "@/components/common/Button";
 
 const Header = () => {
   const router = useRouter();
@@ -23,7 +22,7 @@ const Header = () => {
           MyLog
         </button>
         <div className={styles.header_menu_wrapper}>
-          <Button text={"새 글 작성"} onClick={onClickMoveToNew} />
+          <button onClick={onClickMoveToNew}>새 글 작성</button>
           <button className={styles.header_search_icon}>
             <SearchOutlined />
           </button>
