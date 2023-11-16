@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import styles from "../../styles/New.module.css";
 import Line from "@/components/common/Line";
+import { memo } from "react";
 
 interface IFormValues {
   title: string;
@@ -70,4 +71,4 @@ const New = () => {
 
 New.displayName = "New";
 
-export default New;
+export default memo(New);
