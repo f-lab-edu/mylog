@@ -1,10 +1,10 @@
 import { useRef, useState } from "react";
-import { useParams } from "react-router-dom";
-import Line from "../components/Line";
-import style from "./Edit.module.css";
+import Line from "../../../components/common/Line";
+import style from "../../../styles/Edit.module.css";
+import { memo } from "react";
 
 // interface ContentState {
-//   state: {
+//   Blog: {
 //     title: string;
 //     date: Date;
 //     content: string;
@@ -12,7 +12,6 @@ import style from "./Edit.module.css";
 // }
 
 const Edit = () => {
-  const { id } = useParams();
   // const [state, setState] = useState<ContentState["state"]>();
   const [state, setState] = useState({
     title: "title",
@@ -31,6 +30,7 @@ const Edit = () => {
   return (
     <>
       <div>
+        <button>QS 바꾸기</button>
         <h1 id="title" data-value={state.title} onChange={onChange}></h1>
         <div className={style.edit_head_detail}>
           <span>연이</span>
@@ -47,4 +47,6 @@ const Edit = () => {
   );
 };
 
-export default Edit;
+Edit.displayName = "Edit";
+
+export default memo(Edit);

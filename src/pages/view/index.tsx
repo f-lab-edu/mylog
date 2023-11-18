@@ -1,25 +1,18 @@
 import React from "react";
-import { useParams } from "react-router-dom";
-import styles from "./View.module.css";
-import Line from "../components/Line";
-import Button from "../components/Button";
+import styles from "../../styles/View.module.css";
+import Line from "../../components/common/Line";
+import { memo } from "react";
 
 const View = () => {
-  const { id } = useParams();
-  console.log(id);
   return (
     <>
       <div className={styles.view_head}>
         <h1 className={styles.view_head_title}>View Title</h1>
         <div className={styles.view_head_detail}>
-          <span>연이</span>
-          <span>2023.7.4. 11:11</span>
-          <Button text={"Edit"} onClick={() => alert("edit!")} type={"edit"} />
-          <Button
-            text={"Delete"}
-            onClick={() => alert("delete!")}
-            type={"delete"}
-          />
+          <span>지유</span>
+          <span>2023.11.11. 11:11</span>
+          <button onClick={() => alert("edit!")}>수정하기</button>
+          <button onClick={() => alert("delete!")}>삭제하기</button>
         </div>
         <Line />
       </div>
@@ -29,7 +22,7 @@ const View = () => {
           alt="view_img"
           className={styles.view_img}
         />
-        <p>
+        <div>
           품었기 이상의 피는 끝에 싹이 봄바람을 것이다. 천지는 목숨이
           관현악이며, 그들의 너의 시들어 피가 꽃이 방지하는 부패뿐이다. 얼마나
           이것을 원질이 그러므로 소리다.이것은 힘차게 시들어 끝에 봄바람이다.
@@ -54,10 +47,12 @@ const View = () => {
           가치를 소금이라 오아이스도 위하여서 철환하였는가? 뭇 같지 있는
           스며들어 충분히 칼이다. 끓는 대중을 사랑의 군영과 얼음이 천하를
           반짝이는 같은 것이다.
-        </p>
+        </div>
       </div>
     </>
   );
 };
 
-export default View;
+View.displayName = "View";
+
+export default memo(View);

@@ -1,12 +1,12 @@
-import React from "react";
-import styles from "./Footer.module.css";
-import Line from "../Line";
+import styles from "../../styles/Footer.module.css";
+import Line from "../common/Line";
+import { memo } from "react";
 
 const Footer = () => {
   return (
-    <footer>
+    <footer className={styles.footer}>
       <Line />
-      <div className={styles.footer_text}>
+      <div>
         <h4>MyLog</h4>
         <p className={styles.footer_p}>서울특별시 중구 세종대로</p>
       </div>
@@ -14,4 +14,6 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+Footer.displayName = "Footer";
+
+export default memo(Footer);

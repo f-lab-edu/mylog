@@ -1,23 +1,35 @@
-import React from "react";
-import styles from "./Header.module.css";
-import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
-import SearchIcon from "@mui/icons-material/Search";
-import Line from "../Line";
+import { useRouter } from "next/router";
+import styles from "../../styles/Header.module.css";
+import Line from "../common/Line";
+import { SearchOutlined, MenuOutlined } from "@ant-design/icons";
+import { memo } from "react";
 
 const Header = () => {
+  const router = useRouter();
+  const onClickLogo = () => {
+    router.push("/");
+  };
+  const onClickMoveToNew = () => {
+    router.push("new");
+  };
   const env = process.env;
   env.PUBLIC_URL = env.PUBLIC_URL || "";
 
   return (
     <>
-      <header>
-        <button className={styles.header_logo}>MyLog</button>
-        <button className={styles.header_search_icon}>
-          <SearchIcon />
+      <header className={styles.header}>
+        <button className={styles.header_logo} onClick={onClickLogo}>
+          MyLog
         </button>
-        <button className={styles.header_menu_icon}>
-          <MenuRoundedIcon />
-        </button>
+        <div className={styles.header_menu_wrapper}>
+          <button onClick={onClickMoveToNew}>새 글 작성</button>
+          <button className={styles.header_search_icon}>
+            <SearchOutlined />
+          </button>
+          <button className={styles.header_menu_icon}>
+            <MenuOutlined />
+          </button>
+        </div>
       </header>
       <img
         src={process.env.PUBLIC_URL + `/assets/wave.jpg`}
@@ -29,4 +41,6 @@ const Header = () => {
   );
 };
 
-export default Header;
+Header.displayName = "Header";
+
+export default memo(Header);
