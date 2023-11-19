@@ -1,24 +1,37 @@
 import Line from "@/components/common/Line";
 import BlogItem from "../../components/layout/BlogItem";
-import styles from "../../styles/Component.module.css";
-import { useRouter } from "next/router";
-import { memo, useEffect } from "react";
-import supabase from "@/lib/supabase/client";
+import { memo, useEffect, useState } from "react";
+import { Database } from "@/lib/supabase/schema";
+import { supabase } from "@/lib/supabase/initSupabase";
 
-interface Blog {
-  id: number;
-  title: string;
-  content: string;
-  createdDate: number;
-}
-interface BlogListProps {
-  blogLists: Blog[];
-}
+type Blog = Database["public"]["Tables"]["blog"]["Row"];
 
-const BlogLists = ({ blogLists }: BlogListProps) => {
-  const router = useRouter();
-  const numberOfBlogPosts: number = blogLists ? blogLists.length : 0;
-  const blogPosts: Blog[] = blogLists ?? [];
+const BlogLists = () => {
+  const [blogPosts, setBlogPosts] = useState<Blog[]>([]);
+  const numberOfBlogPosts: number = blogPosts ? blogPosts.length : 0;
+  const blogPost: Blog[] = blogPosts ?? [];
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { data: blogPosts, error } = await supabase
+          .from("blog")
+          .select("*")
+          .order("id", { ascending: false });
+
+        if (error) {
+          throw error;
+        }
+
+        setBlogPosts(blogPosts);
+        console.log("Supabase 연결 성공:", blogPosts);
+      } catch (error) {
+        if (error instanceof Error)
+          console.log("Supabase 데이터 가져오는 중 오류 >> ", error.message);
+      }
+    };
+    fetchData();
+  }, []);
 
   return (
     <div>
@@ -26,8 +39,8 @@ const BlogLists = ({ blogLists }: BlogListProps) => {
       <h4>{numberOfBlogPosts}개의 글이 있습니다.</h4>
       <Line />
       <div>
-        {blogPosts.map((lists: Blog) => (
-          <BlogItem key={lists.id} {...lists} />
+        {blogPost.map((posts: Blog) => (
+          <BlogItem key={posts.id} {...posts} />
         ))}
       </div>
     </div>
