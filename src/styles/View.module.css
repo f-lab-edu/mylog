@@ -1,9 +1,19 @@
 .view_head_detail {
-  width: 350px;
+  margin-top: 10px;
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
 }
 
-.view_img {
-  width: 300px;
+.view_head_detail_left {
+  padding-left: 5px;
+}
+
+.view_head_detail_left_writer {
+  font-weight: 600;
+  margin-right: 20px;
+}
+
+.view_head_detail_right_editBtn {
+  margin-right: 15px;
 }
