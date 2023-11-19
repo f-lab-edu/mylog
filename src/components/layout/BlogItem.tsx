@@ -1,44 +1,24 @@
 import styles from "../../styles/Component.module.css";
 import { useRouter } from "next/router";
-import { MouseEvent, useRef, useReducer } from "react";
 import { memo } from "react";
+import { Database } from "@/lib/supabase/schema";
+import DOMPurify from "dompurify";
 
-interface Blog {
-  id: number;
-  title: string;
-  content: string;
-  createdDate: number;
-}
+type Blog = Database["public"]["Tables"]["blog"]["Row"];
 
-interface Action {
-  type: string;
-  data: { id: number; title: string; content: string; createdDate: number };
-}
-
-// const reducer = (state: Blog[], action: Action): Blog[] => {
-//   switch (action.type) {
-//     case "CREATE": {
-//       return [...state, action.data];
-//     }
-//   }
-// };
-
-const BlogItem = ({ id, title, content, createdDate }: Blog) => {
+const BlogItem = ({ id, title, content, createdDate, writer }: Blog) => {
   const router = useRouter();
-  // const [blogLists, dispatch] = useReducer(reducer);
-  const idRef = useRef(4);
 
-  const onClickMoveToDetail = (e: MouseEvent<HTMLDivElement>): void => {
-    // router.push(`${e.target.id}`);
-  };
-
-  const onClickMoveToEdit = () => {
-    router.push(`/edit`);
+  const onClickMoveToDetail = (id: number): void => {
+    router.push(`${id}`);
   };
 
   return (
     <div>
-      <article className={styles.section_article} onClick={onClickMoveToDetail}>
+      <article
+        className={styles.section_article}
+        onClick={() => onClickMoveToDetail(id)}
+      >
         <img
           src={process.env.PUBLIC_URL + `/assets/wave2.jpg`}
           alt="home_img"
@@ -49,9 +29,14 @@ const BlogItem = ({ id, title, content, createdDate }: Blog) => {
           <div className={styles.blog_date}>
             {new Date(createdDate).toLocaleDateString()}
           </div>
-          <p>
-            <div className={styles.blog_content_preview}>{content}</div>
-          </p>
+          {process.browser && (
+            <div
+              className={styles.blog_content_preview}
+              dangerouslySetInnerHTML={{
+                __html: DOMPurify.sanitize(String(content)),
+              }}
+            />
+          )}
         </div>
       </article>
     </div>
