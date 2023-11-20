@@ -6,7 +6,7 @@ import DOMPurify from "dompurify";
 
 type Blog = Database["public"]["Tables"]["blog"]["Row"];
 
-const BlogItem = ({ id, title, content, createdDate, writer }: Blog) => {
+const BlogItem = ({ id, title, content, createdDate }: Blog) => {
   const router = useRouter();
 
   const onClickMoveToDetail = (id: number): void => {
@@ -16,22 +16,17 @@ const BlogItem = ({ id, title, content, createdDate, writer }: Blog) => {
   return (
     <div>
       <article
-        className={styles.section_article}
+        className={styles.article}
         onClick={() => onClickMoveToDetail(id)}
       >
-        <img
-          src={process.env.PUBLIC_URL + `/assets/wave2.jpg`}
-          alt="home_img"
-          className={styles.home_img}
-        />
         <div>
-          <div className={styles.section_article_text}>{title}</div>
-          <div className={styles.blog_date}>
+          <div className={styles.article_title}>{title}</div>
+          <span className={styles.article_date}>
             {new Date(createdDate).toLocaleDateString()}
-          </div>
+          </span>
           {process.browser && (
             <div
-              className={styles.blog_content_preview}
+              className={styles.article_content_preview}
               dangerouslySetInnerHTML={{
                 __html: DOMPurify.sanitize(String(content)),
               }}
@@ -44,5 +39,4 @@ const BlogItem = ({ id, title, content, createdDate, writer }: Blog) => {
 };
 
 BlogItem.displayName = "BlogItem";
-
 export default memo(BlogItem);

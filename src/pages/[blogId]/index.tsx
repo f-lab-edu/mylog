@@ -13,12 +13,12 @@ type Blog = Database["public"]["Tables"]["blog"]["Row"];
 const View = () => {
   const router = useRouter();
   const blogId = Number(router.query.blogId);
-  const [blogPost, setBlogPost] = useState<Blog[]>([]);
+  const [blog, setBlog] = useState<Blog[]>([]);
 
   useEffect(() => {
-    const fetchBlogPost = async () => {
+    const fetchBlog = async () => {
       try {
-        const { data: blogPost, error } = await supabase
+        const { data: blog, error } = await supabase
           .from("blog")
           .select("*")
           .eq("id", blogId);
@@ -27,15 +27,15 @@ const View = () => {
           throw error;
         }
 
-        setBlogPost(blogPost);
-        console.log("view페이지 연결!", blogPost);
+        setBlog(blog);
+        console.log("view페이지 연결!", blog);
       } catch (error) {
         if (error instanceof Error) {
           console.log("view페이지 에러 >> ", error.message);
         }
       }
     };
-    fetchBlogPost();
+    fetchBlog();
   }, [blogId]);
 
   const onClickMoveToEdit = (): void => {
@@ -46,7 +46,7 @@ const View = () => {
     if (window.confirm("삭제하시겠습니까?")) {
       try {
         await supabase.from("blog").delete().eq("id", blogId).throwOnError();
-        setBlogPost(blogPost.filter((posts) => posts.id !== blogId));
+        setBlog(blog.filter((post) => post.id !== blogId));
       } catch (error) {
         if (error instanceof Error) {
           console.log("게시물 삭제 중 에러 >> ", error.message);
@@ -61,7 +61,7 @@ const View = () => {
 
   return (
     <>
-      {blogPost.map((post) => (
+      {blog.map((post) => (
         <div key={post.id}>
           <div className={styles.view_head}>
             <h1>{post.title}</h1>
@@ -107,5 +107,4 @@ const View = () => {
 };
 
 View.displayName = "View";
-
 export default memo(View);
