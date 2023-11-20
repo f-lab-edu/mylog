@@ -1,4 +1,4 @@
-import React from "react";
+import { memo } from "react";
 import styles from "../../styles/Component.module.css";
 
 const Line = () => {
@@ -6,5 +6,4 @@ const Line = () => {
 };
 
 Line.displayName = "Line";
-
-export default Line;
+export default memo(Line);
