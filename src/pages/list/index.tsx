@@ -8,8 +8,6 @@ type Blog = Database["public"]["Tables"]["blog"]["Row"];
 
 const BlogLists = () => {
   const [blogLists, setBlogLists] = useState<Blog[]>([]);
-  const numberOfBlogs: number = blogLists ? blogLists.length : 0;
-  const fetchedBlogs: Blog[] = blogLists ?? [];
 
   useEffect(() => {
     const fetchData = async () => {
@@ -36,10 +34,10 @@ const BlogLists = () => {
   return (
     <div>
       <h2>블로그 리스트</h2>
-      <h4>{numberOfBlogs}개의 글이 있습니다.</h4>
+      <h4>{blogLists.length}개의 글이 있습니다.</h4>
       <Line />
       <div>
-        {fetchedBlogs.map((posts: Blog) => (
+        {blogLists.map((posts: Blog) => (
           <BlogItem key={posts.id} {...posts} />
         ))}
       </div>
