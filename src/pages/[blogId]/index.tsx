@@ -16,6 +16,8 @@ const View = () => {
   const [blog, setBlog] = useState<Blog[]>([]);
 
   useEffect(() => {
+    let isMounted = true;
+
     const fetchBlog = async () => {
       try {
         const { data: blog, error } = await supabase
@@ -27,7 +29,9 @@ const View = () => {
           throw error;
         }
 
-        setBlog(blog);
+        if (isMounted) {
+          setBlog(blog);
+        }
         console.log("view페이지 연결!", blog);
       } catch (error) {
         if (error instanceof Error) {
@@ -36,6 +40,10 @@ const View = () => {
       }
     };
     fetchBlog();
+
+    return () => {
+      isMounted = false;
+    };
   }, [blogId]);
 
   const onClickMoveToEdit = (): void => {
