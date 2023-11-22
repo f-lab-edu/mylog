@@ -29,9 +29,8 @@ const View = () => {
           throw error;
         }
 
-        if (isMounted) {
-          setBlog(blog);
-        }
+        if (!isMounted) return;
+        setBlog(blog);
         console.log("view페이지 연결!", blog);
       } catch (error) {
         if (error instanceof Error) {
@@ -40,7 +39,6 @@ const View = () => {
       }
     };
     fetchBlog();
-
     return () => {
       isMounted = false;
     };
