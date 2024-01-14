@@ -9,6 +9,7 @@ import { supabase } from "@/lib/supabase/initSupabase";
 import dayjs from "dayjs";
 import { modules } from "@/components/common/EditorModules";
 import { Database } from "@/lib/supabase/schema";
+import { UnprivilegedEditor } from "react-quill";
 
 type Blog = Database["public"]["Tables"]["blog"]["Row"];
 
@@ -52,9 +53,10 @@ const Write = (props: WriteProps) => {
     mode: "onChange",
   });
 
-  const onChangeContent = (value: string) => {
-    setValue("content", value === "<p><br></p>" ? "" : value);
-
+  const onChangeContent = (editor: UnprivilegedEditor) => {
+    const content = editor.getContents();
+    console.log(JSON.stringify(content));
+    setValue("content", JSON.stringify(content));
     trigger("content");
   };
 
@@ -88,7 +90,7 @@ const Write = (props: WriteProps) => {
       />
       <br />
       <ReactQuill
-        onChange={onChangeContent}
+        onChange={(content, delta, source, editor) => onChangeContent(editor)}
         placeholder="내용을 입력하세요."
         className={styles.write_content_reactQuill}
         modules={modules}
