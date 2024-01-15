@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { Database } from "@/lib/supabase/schema";
 import { supabase } from "@/lib/supabase/initSupabase";
 import dayjs from "dayjs";
+import { QuillDeltaToHtmlConverter } from "quill-delta-to-html";
 import DOMPurify from "dompurify";
 
 type Blog = Database["public"]["Tables"]["blog"]["Row"];
@@ -30,8 +31,15 @@ const View = () => {
         }
 
         if (!isMounted) return;
-        setBlog(blog);
-        console.log("view페이지 연결!", blog);
+
+        const deltaOps = JSON.parse(blog[0].content).ops;
+        const deltaToHtmlConverter = new QuillDeltaToHtmlConverter(
+          deltaOps,
+          {}
+        );
+        const html = deltaToHtmlConverter.convert();
+
+        setBlog(blog.map((post) => ({ ...post, content: html })));
       } catch (error) {
         if (error instanceof Error) {
           console.log("view페이지 에러 >> ", error.message);
@@ -93,11 +101,6 @@ const View = () => {
             <Line />
           </div>
           <div className={styles.view_main_content}>
-            {/* <img
-              src={process.env.PUBLIC_URL + `/assets/wave2.jpg`}
-              alt="view_img"
-              className={styles.view_img}
-            /> */}
             {process.browser && (
               <div
                 dangerouslySetInnerHTML={{
