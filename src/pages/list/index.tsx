@@ -22,7 +22,7 @@ const Blogs = () => {
           throw error;
         }
 
-        const blogList = blogs.map((post) => {
+        const deltaToHtmlBlogs = blogs.map((post) => {
           let postContent = post.content;
           const deltaOps = JSON.parse(postContent).ops;
           const deltaToHtmlConverter = new QuillDeltaToHtmlConverter(
@@ -32,7 +32,7 @@ const Blogs = () => {
           const html = deltaToHtmlConverter.convert();
           return { ...post, content: html };
         });
-        setBlogs(blogList);
+        setBlogs(deltaToHtmlBlogs);
       } catch (error) {
         if (error instanceof Error)
           console.log("Supabase 데이터 가져오는 중 오류 >> ", error.message);
