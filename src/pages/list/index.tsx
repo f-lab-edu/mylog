@@ -1,39 +1,59 @@
 import Line from "@/components/common/Line";
 import BlogItem from "../../components/layout/BlogItem";
-import styles from "../../styles/Component.module.css";
-import { useRouter } from "next/router";
-import { memo, useEffect } from "react";
-import supabase from "@/lib/supabase/client";
+import { memo, useEffect, useState } from "react";
+import { Database } from "@/lib/supabase/schema";
+import { supabase } from "@/lib/supabase/initSupabase";
+import { QuillDeltaToHtmlConverter } from "quill-delta-to-html";
 
-interface Blog {
-  id: number;
-  title: string;
-  content: string;
-  createdDate: number;
-}
-interface BlogListProps {
-  blogLists: Blog[];
-}
+type Blog = Database["public"]["Tables"]["blog"]["Row"];
 
-const BlogLists = ({ blogLists }: BlogListProps) => {
-  const router = useRouter();
-  const numberOfBlogPosts: number = blogLists ? blogLists.length : 0;
-  const blogPosts: Blog[] = blogLists ?? [];
+const Blogs = () => {
+  const [blogs, setBlogs] = useState<Blog[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { data: blogs, error } = await supabase
+          .from("blog")
+          .select("*")
+          .order("id", { ascending: false });
+
+        if (error) {
+          throw error;
+        }
+
+        const deltaToHtmlBlogs = blogs.map((post) => {
+          let postContent = post.content;
+          const deltaOps = JSON.parse(postContent).ops;
+          const deltaToHtmlConverter = new QuillDeltaToHtmlConverter(
+            deltaOps,
+            {}
+          );
+          const html = deltaToHtmlConverter.convert();
+          return { ...post, content: html };
+        });
+        setBlogs(deltaToHtmlBlogs);
+      } catch (error) {
+        if (error instanceof Error)
+          console.log("Supabase 데이터 가져오는 중 오류 >> ", error.message);
+      }
+    };
+    fetchData();
+  }, []);
 
   return (
     <div>
       <h2>블로그 리스트</h2>
-      <h4>{numberOfBlogPosts}개의 글이 있습니다.</h4>
+      <h4>{blogs.length}개의 글이 있습니다.</h4>
       <Line />
       <div>
-        {blogPosts.map((lists: Blog) => (
-          <BlogItem key={lists.id} {...lists} />
+        {blogs.map((posts: Blog) => (
+          <BlogItem key={posts.id} {...posts} />
         ))}
       </div>
     </div>
   );
 };
 
-BlogLists.displayName = "BlogLists";
-
-export default memo(BlogLists);
+Blogs.displayName = "blogs";
+export default memo(Blogs);
