@@ -3,6 +3,7 @@ import BlogItem from "../../components/layout/BlogItem";
 import { memo, useEffect, useState } from "react";
 import { Database } from "@/lib/supabase/schema";
 import { supabase } from "@/lib/supabase/initSupabase";
+import { QuillDeltaToHtmlConverter } from "quill-delta-to-html";
 
 type Blog = Database["public"]["Tables"]["blog"]["Row"];
 
@@ -21,8 +22,17 @@ const Blogs = () => {
           throw error;
         }
 
-        setBlogs(blogs);
-        console.log("Supabase 연결 성공:", blogs);
+        const blogList = blogs.map((post) => {
+          let postContent = post.content;
+          const deltaOps = JSON.parse(postContent).ops;
+          const deltaToHtmlConverter = new QuillDeltaToHtmlConverter(
+            deltaOps,
+            {}
+          );
+          const html = deltaToHtmlConverter.convert();
+          return { ...post, content: html };
+        });
+        setBlogs(blogList);
       } catch (error) {
         if (error instanceof Error)
           console.log("Supabase 데이터 가져오는 중 오류 >> ", error.message);
